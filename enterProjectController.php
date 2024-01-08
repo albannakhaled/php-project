@@ -24,9 +24,6 @@ if (isset($_POST['submit'])) {
     
 
 }
-if (isset($_POST['back'])) {
-	header("location:index.php");
-}
 include_once ("enterProject.php");
 
 ?>
