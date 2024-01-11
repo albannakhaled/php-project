@@ -7,46 +7,56 @@ if (isset($_SESSION['projectManager'])) {
     $projectsManager = $_SESSION['projectManager'];
     
     // Print the records in the project manager
-    print_r($projectsManager->record);
+    // print_r($projectsManager->record);
 
     // Display the project selected with students in a table
     ?>
-    <table border="1">
-        <tr>
-            <th></th>
-            <?php
-            // Print project names as table headers
-            foreach ($projectsManager->listOfStudents as $student) {
-                echo "<th>{$student->firstName} {$student->lastName}</th>";
-            }
-            ?>
-        </tr>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Display Projects</title>
+        <link rel="stylesheet" href="css/display-student.css">
+    </head>
+    <body>
+        <div class="container">
+            <?php if (!empty($projectsManager->listOfProjects)) : ?>
+                <table>
+                    <tr>
+                        <th></th>
+                        <?php foreach ($projectsManager->listOfStudents as $student) : ?>
+                            <th><?php echo "{$student->firstName} {$student->lastName}"; ?></th>
+                        <?php endforeach; ?>
+                    </tr>
 
-        <?php
-        // Print student names and X sign for selected projects
-        foreach ($projectsManager->listOfProjects as $project) {
-            echo "<tr><td>{$project->name}</td>";
-            foreach ($projectsManager->listOfStudents as $student) {
-                if (isset($projectsManager->record[$project->name])) {
-                    if (in_array(array($student->firstName, $student->lastName), $projectsManager->record[$project->name])) {
-                        echo "<td>X</td>";
-                    } else {
-                        echo "<td></td>";
-                    }
-                } else {
-                    echo "<td></td>";
-                }
-            }
-            echo "</tr>";
-        }
-        ?>
-    </table>
-    <br>
-    <br>
-
-    <form action="index.php">
-        <input type="submit" value="Back to Home Page" name="back">
-    </form>
+                    <?php foreach ($projectsManager->listOfProjects as $project) : ?>
+                        <tr>
+                            <td><?php echo $project->name; ?></td>
+                            <?php foreach ($projectsManager->listOfStudents as $student) : ?>
+                                <?php
+                                if (isset($projectsManager->record[$project->name])) {
+                                    $isSelected = in_array(array($student->firstName, $student->lastName), $projectsManager->record[$project->name]);
+                                    echo "<td>" . ($isSelected ? 'X' : '') . "</td>";
+                                } else {
+                                    echo "<td></td>";
+                                }
+                                ?>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+                <br>
+                <br>
+                <form action="index.php">
+                    <input type="submit" value="Back to Home Page" name="back" class="back-btn">
+                </form>
+            <?php else : ?>
+                <p>No projects available</p>
+            <?php endif; ?>
+        </div>
+    </body>
+    </html>
 <?php
 } else {
     echo "Session variable 'projectManager' is not set.";
