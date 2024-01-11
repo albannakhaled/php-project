@@ -24,5 +24,28 @@ class ProjectManager{
     public $listOfProjects = [] ;
     public $listOfStudents = [];
     public $record = [];
+    public $takenProjects = [];
+    public $takenStudents = [];
+    
+
+    public function checkIfProjectTaken($project){
+        if(in_array($project, $this->takenProjects)){
+            return true;
+        }
+        return false;
+    }
+    public function checkIfStudentTaken($student){
+        if(in_array($student, $this->takenStudents)){
+            return true;
+        }
+        return false;
+    }
+    // check if project has more 2 students
+    public function checkIfProjectFull($project){
+        if(count($this->record[$project]) >= 2){
+            return true;
+        }
+        return false;
+    }
 }
 ?>
