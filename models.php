@@ -23,31 +23,29 @@ class Student{
 class ProjectManager{
     public $listOfProjects = [] ;
     public $listOfStudents = [];
+    public $record = [];
+    public $takenProjects = [];
+    public $takenStudents = [];
+    
 
-    public function getStudentByProject($projectName){
-        $studentList = array();
-        foreach($this->listOfStudents as $student){
-            if($student->project == $projectName){
-                array_push($studentList, $student);
-            }
+    public function checkIfProjectTaken($project){
+        if(in_array($project, $this->takenProjects)){
+            return true;
         }
-        return $studentList;
+        return false;
     }
-
-    public function getProjectByStudent($studentName){
-        $projectList = array();
-        foreach($this->listOfProjects as $project){
-            if($project->student == $studentName){
-                array_push($projectList, $project);
-            }
+    public function checkIfStudentTaken($student){
+        if(in_array($student, $this->takenStudents)){
+            return true;
         }
-        return $projectList;
+        return false;
     }
-    public function getAllStudents(){
-        return $this->listOfStudents;
-    }
-    public function getAllProjects(){
-        return $this->listOfProjects;
+    // check if project has more 2 students
+    public function checkIfProjectFull($project){
+        if(count($this->record[$project]) >= 2){
+            return true;
+        }
+        return false;
     }
 }
 ?>

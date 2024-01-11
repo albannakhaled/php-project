@@ -1,45 +1,33 @@
-<?php
+<?php 
 include_once('initSession.php');
-print_r($_SESSION['projectManager']);
 if (!empty($projectsManager->listOfProjects)) {
     ?>
-
-    <form method="post">
-        <label>Select a Project</label>
-        <select name="selected_project">
+    <form action="assignController.php" method="post">
+        <label>Select a project</label>
+        <select name="projectSelected">
             <?php
-            // Display available projects in the dropdown
             foreach ($projectsManager->listOfProjects as $project) {
-                echo "<option value=\"{$project->name}\">{$project->name}</option>";
+                echo "<option value='{$project->name}'>{$project->name}</option>";
             }
             ?>
         </select>
-        <br>
-        <br>
-
-        <label>
-            <h3>Select Students</h3>
-        </label><br>
+        <br><br>
+        <label>Select students for the project</label>
+        <br><br>
         <?php
-        // Display checkboxes for available students
-        // Should the user select 2 students at max when pressing submit
-
-        foreach ($projectsManager->listOfStudents as $student) {
-            echo "<input type=\"checkbox\" name=\"selected_students[]\" value=\"{$student->firstName} {$student->lastName}\">{$student->firstName} {$student->lastName}<br>";
+        foreach ($projectsManager->listOfStudents as $key => $value) {
+            echo "<input type='checkbox' name='select-student[]' value='{$key}'>{$value->firstName} {$value->lastName}<br>";
         }
         ?>
-        <br>
-        <input type="submit" value="Assign Project" name="assign-project">
-        <?php
-        if (isset($_POST['assign-project'])) {
-            // Check if selected_students is set before accessing its count
-            if (isset($_POST['selected_students']) && count($_POST['selected_students']) > 2) {
-                echo "You can select only 2 students";
-            }
-        }
-        ?>
+        <input type="submit" name="assign-students" value="Assign Students">
     </form>
 <?php } else {
-    echo "No projects to display";
+    echo "No projects available";
 }
 ?>
+
+<br><br>
+
+<form action="index.php">
+    <input type="submit" value="Back to home page" name="back">
+</form>

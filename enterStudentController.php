@@ -8,8 +8,5 @@
 
         
     }
-    if(isset($_POST['back'])) {
-        header("location:index.php");
-    }
     include_once ("enterStudent.php");
 ?>
