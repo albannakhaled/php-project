@@ -29,7 +29,7 @@ class ProjectManager{
     
 
     public function checkIfProjectTaken($project){
-        if(in_array($project, $this->takenProjects)){
+        if(!in_array($project, $this->record)){
             return true;
         }
         return false;

@@ -4,12 +4,14 @@ include_once('initSession.php');
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assign Students</title>
     <link rel="stylesheet" href="css/change-assignement-style.css">
 </head>
+
 <body>
     <div class="container">
         <form action="" method="post">
@@ -26,12 +28,20 @@ include_once('initSession.php');
             <label>Select students to be changed</label>
             <br><br>
             <?php
-            if(isset($_POST['display-student-assigned'])){
+            if (isset($_POST['display-student-assigned'])) {
                 $projectSelected = $_POST['projectSelected'];
-                foreach ($projectsManager->record[$projectSelected] as $student) {
-                    echo "<input type='checkbox' name='studentSelected[]' value='{$student[0]} {$student[1]}'>{$student[0]} {$student[1]}<br>";
+
+                if ($projectsManager->checkIfProjectTaken($projectSelected)) {
+                    foreach ($projectsManager->record[$projectSelected] as $student) {
+                        echo "<input type='checkbox' name='studentSelected[]' value='{$student[0]} {$student[1]}'>{$student[0]} {$student[1]}<br>";
+                    }
+                }else{
+                    echo "<br>";
+                    echo "No Student Assigned to this Project";
+                    echo "<br>";
                 }
             }
+
             ?>
             <input type="submit" name="assign-students" value="Assign Students">
         </form>
@@ -40,4 +50,5 @@ include_once('initSession.php');
         </form>
     </div>
 </body>
+
 </html>

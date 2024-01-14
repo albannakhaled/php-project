@@ -17,7 +17,9 @@
                 <label>Select a project</label>
                 <select name="projectSelected">
                     <?php foreach ($projectsManager->listOfProjects as $project) : ?>
-                        <option value='<?php echo $project->name; ?>'><?php echo $project->name; ?></option>
+                        <?php if($projectsManager->checkIfProjectTaken($project)) 
+                            echo "<option value='$project->name'>$project->name</option>";
+                        ?>
                     <?php endforeach; ?>
                 </select>
                 <br><br>
