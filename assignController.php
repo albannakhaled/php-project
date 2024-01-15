@@ -2,30 +2,21 @@
 //when a new attendance is created
 
 include_once ('initSession.php');  
-
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-	if (isset($_POST['projectSelected']) && isset($_POST['select-student']))
+	
+	if(isset($_POST['assign-students']))
 	{
-		
-		foreach($_POST['select-student'] as $check)
+		if(count($_POST['select-student']) > 2)
 		{
-
-			foreach ($projectsManager->listOfStudents as $key => $value)
-			{
-				
-				if($key == $check)
-				{	
-				
-					$projectsManager->record[$_POST['projectSelected']][] = array($value->firstName, $value->lastName);
-				}
-				
-			}	
-		
-		}	
+			echo "<script>alert('You can only select 2 students for each project!')</script>";
+			echo "<script>window.location.href='assignProjectToStudent.php'</script>";
+		}else{
+			$projectSelected = $_POST['projectSelected'];
+			$studentsSelected = $_POST['select-student'];
+			$projectsManager->record[$projectSelected] = $studentsSelected;
+			echo "<script>alert('Students assigned successfully!')</script>";
+			echo "<script>window.location.href='index.php'</script>";
+		}
 	}
-	else 
-		echo "You should to enter a sheet date";
-}
-include_once("index.php");
+
+	include_once 'index.php';
 ?>

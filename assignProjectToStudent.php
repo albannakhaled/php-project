@@ -16,19 +16,20 @@
             <form action="assignController.php" method="post">
                 <label>Select a project</label>
                 <select name="projectSelected">
-                    <?php foreach ($projectsManager->listOfProjects as $project) : ?>
-                        <?php if($projectsManager->checkIfProjectTaken($project)) 
-                            echo "<option value='$project->name'>$project->name</option>";
-                        ?>
+                    <!-- display project not taken -->
+                    <?php foreach ($projectsManager->displayAvailableProjects() as $project) : ?>
+                        <option value="<?php echo $project->name; ?>"><?php echo $project->name; ?></option>
                     <?php endforeach; ?>
                 </select>
                 <br><br>
                 <label>Select students for the project</label>
                 <br><br>
-                <?php foreach ($projectsManager->listOfStudents as $key => $value) : ?>
-                    <input type='checkbox' name='select-student[]' value='<?php echo $key; ?>'><?php echo $value->firstName; ?> <?php echo $value->lastName; ?><br>
+                <!-- display student not taken -->
+                <?php foreach ($projectsManager->displayAvailableStudents() as $student) : ?>
+                    <input type="checkbox" name="select-student[]" value="<?php echo $student->firstName." ".$student->lastName; ?>"><?php echo $student->firstName . ' ' . $student->lastName; ?><br>
                 <?php endforeach; ?>
                 <input type="submit" name="assign-students" value="Assign Students">
+                <!-- <input type="submit" name="check" value="check nb of student"> -->
             </form>
         <?php else : ?>
             <p>No projects available</p>

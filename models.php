@@ -24,28 +24,47 @@ class ProjectManager{
     public $listOfProjects = [] ;
     public $listOfStudents = [];
     public $record = [];
-    public $takenProjects = [];
-    public $takenStudents = [];
     
 
-    public function checkIfProjectTaken($project){
-        if(!in_array($project, $this->record)){
-            return true;
+    // display project not selected by any student
+    public function displayAvailableProjects(){
+        $availableProjects = [];
+        foreach($this->listOfProjects as $project){
+            if(!in_array($project->name, array_keys($this->record))){
+                $availableProjects[] = $project;
+            }
+        }
+        return $availableProjects;
+    }
+
+   // check if student has a project
+    public function checkStudentProject($student){
+        foreach($this->record as $project => $students){
+            if(in_array($student, $students)){
+                return $project;
+            }
         }
         return false;
     }
-    public function checkIfStudentTaken($student){
-        if(in_array($student, $this->takenStudents)){
-            return true;
+    // display student not assigned to any project
+    public function displayAvailableStudents(){
+        $availableStudents = [];
+        foreach($this->listOfStudents as $student){
+            $fullName = $student->firstName." ".$student->lastName;
+            if(!$this->checkStudentProject($fullName)){
+                $availableStudents[] = $student;
+            }
         }
-        return false;
+        return $availableStudents;
     }
-    // check if project has more 2 students
-    public function checkIfProjectFull($project){
-        if(count($this->record[$project]) >= 2){
-            return true;
-        }
-        return false;
+    // delete student from project
+    public function deleteStudentFromProject($project, $student){
+        $key = array_search($student, $this->record[$project]);
+        unset($this->record[$project][$key]);
+    }
+    // add student to project
+    public function addStudentToProject($project, $student){
+        $this->record[$project][] = $student;
     }
 }
 ?>
