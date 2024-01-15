@@ -36,11 +36,12 @@ if (isset($_SESSION['projectManager'])) {
                             <?php foreach ($projectsManager->listOfStudents as $student) : ?>
                                 <?php
                                 if (isset($projectsManager->record[$project->name])) {
-                                    $isSelected = in_array(array($student->firstName, $student->lastName), $projectsManager->record[$project->name]);
-                                    echo "<td>" . ($isSelected ? 'X' : '') . "</td>";
-                                } else {
-                                    echo "<td></td>";
-                                }
+                                    if (in_array("{$student->firstName} {$student->lastName}", $projectsManager->record[$project->name])) {
+                                        echo "<td>X</td>";
+                                    } else {
+                                        echo "<td></td>";
+                                    }
+                                } 
                                 ?>
                             <?php endforeach; ?>
                         </tr>
