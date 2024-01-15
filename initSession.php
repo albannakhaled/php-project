@@ -9,5 +9,5 @@
     $projectsManager = &$_SESSION['projectManager'];
 
 
-    print_r($projectsManager->record);
+    // print_r($projectsManager->record);
 ?>

@@ -3,22 +3,22 @@ include_once('initSession.php');
 
 // Check if the session variable is set
 if (isset($_SESSION['projectManager'])) {
-    // Access the project manager object from the session
-    $projectsManager = $_SESSION['projectManager'];
-    
+
     // Print the records in the project manager
     // print_r($projectsManager->record);
 
     // Display the project selected with students in a table
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Display Projects</title>
         <link rel="stylesheet" href="css/display-student.css">
     </head>
+
     <body>
         <div class="container">
             <?php if (!empty($projectsManager->listOfProjects)) : ?>
@@ -41,7 +41,7 @@ if (isset($_SESSION['projectManager'])) {
                                     } else {
                                         echo "<td></td>";
                                     }
-                                } 
+                                }
                                 ?>
                             <?php endforeach; ?>
                         </tr>
@@ -49,17 +49,16 @@ if (isset($_SESSION['projectManager'])) {
                 </table>
                 <br>
                 <br>
-                <form action="index.php">
-                    <input type="submit" value="Back to Home Page" name="back" class="back-btn">
-                </form>
+
             <?php else : ?>
                 <p>No projects available</p>
             <?php endif; ?>
+            <form action="index.php">
+                <input type="submit" value="Back to Home Page" name="back" class="back-btn">
+            </form>
         </div>
     </body>
     </html>
 <?php
-} else {
-    echo "Session variable 'projectManager' is not set.";
 }
 ?>

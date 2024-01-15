@@ -8,21 +8,8 @@ if (isset($_POST['submit'])) {
         $projectsManager->listOfProjects[] = $project;
     }
     else{
-        switch(true){
-            case empty($_POST['project_name']):
-                $errorMessage = "Project name is required";
-                break;
-            case empty($_POST['project_description']):
-                $errorMessage = "Project description is required";
-                break;
-            case empty($_POST['project_duration']):
-                $errorMessage = "Project duration is required";
-                break;
-        }
+        $errorMessage = "Please fill all the fields";
     }
-    
-    
-
 }
 include_once ("enterProject.php");
 

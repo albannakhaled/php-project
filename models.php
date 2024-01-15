@@ -57,8 +57,14 @@ class ProjectManager{
         }
         return $availableStudents;
     }
-    
-
-    
+    // delete student from project
+    public function deleteStudentFromProject($project, $student){
+        $key = array_search($student, $this->record[$project]);
+        unset($this->record[$project][$key]);
+    }
+    // add student to project
+    public function addStudentToProject($project, $student){
+        $this->record[$project][] = $student;
+    }
 }
 ?>
