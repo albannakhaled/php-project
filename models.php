@@ -50,8 +50,7 @@ class ProjectManager{
     public function displayAvailableStudents(){
         $availableStudents = [];
         foreach($this->listOfStudents as $student){
-            $fullName = $student->firstName." ".$student->lastName;
-            if(!$this->checkStudentProject($fullName)){
+            if(!$this->checkStudentProject("{$student->firstName} {$student->lastName}")){
                 $availableStudents[] = $student;
             }
         }
