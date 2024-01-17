@@ -47,8 +47,10 @@ include_once('initSession.php');
                     $projectsManager->deleteStudentFromProject($projectSelected, $student);
                 }
                 echo "<p>Student deleted from project</p>";
-            }
-            
+                if(empty($projectsManager->record[$projectSelected])){
+                    unset($projectsManager->record[$projectSelected]);
+                }
+            }            
             ?>
             <br>
             <hr>
